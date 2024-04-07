@@ -18,10 +18,10 @@
         <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
         <sonar.language>java</sonar.language>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.java.binaries>target/classes</sonar.java.binaries>
-        <sonar.tests>src/test</sonar.tests>
-        <sonar.sources>src/main</sonar.sources>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.java.binaries>${basedir}/target/classes</sonar.java.binaries>
+        <sonar.tests>${basedir}/src/test</sonar.tests>
+        <sonar.sources>${basedir}/src/main</sonar.sources>
     </properties>
 
     <dependencies>
