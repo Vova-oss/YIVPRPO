@@ -5,8 +5,6 @@ install: true
 addons:
   sonarcloud:
     organization: vova-oss
-    token:
-      secure: 49c132cdbc6de500ca08cdd51f0d7832cdf24263
 
 jdk:
   - openjdk-21
