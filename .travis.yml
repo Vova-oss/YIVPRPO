@@ -1,16 +1,26 @@
 language: java
 
 sudo: false
+install: true
+addons:
+  sonarcloud:
+    organization: vova-oss
+    token:
+      secure: 49c132cdbc6de500ca08cdd51f0d7832cdf24263
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+jdk:
+  - openjdk-21
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 
-before_install:
-  - chmod +x mvnw
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 notifications:
   email:
     recipients:
       - ogyrcka@gmail.com
-    on_success: never
+    on_success: always
     on_failure: always
