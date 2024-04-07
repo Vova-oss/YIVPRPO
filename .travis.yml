@@ -5,6 +5,9 @@ sudo: false
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
+before_install:
+  - chmod +x mvnw
+
 notifications:
   email:
     recipients:
