@@ -22,7 +22,7 @@
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.java.binaries>target/classes</sonar.java.binaries>
         <sonar.tests>src/test</sonar.tests>
-        <sonar.sources>src</sonar.sources>
+        <sonar.sources>src/main</sonar.sources>
     </properties>
 
     <dependencies>
