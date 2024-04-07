@@ -1,8 +1,8 @@
-package com.example.demo;
+package com.example.demo.Pr4;
 
 import java.io.*;
 
-import static com.example.demo.Converter.replaceNumbersInText;
+import static com.example.demo.Pr4.Converter.replaceNumbersInText;
 
 public class FileReplacement {
 

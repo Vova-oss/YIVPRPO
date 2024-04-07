@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Pr4;
 
 import org.apache.logging.log4j.util.Strings;
 
@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.example.demo.Dictionary.basicNumbersMap;
-import static com.example.demo.Dictionary.delimiterNumbersMap;
+import static com.example.demo.Pr4.Dictionary.basicNumbersMap;
+import static com.example.demo.Pr4.Dictionary.delimiterNumbersMap;
 
 public class Converter {
 
@@ -18,7 +18,7 @@ public class Converter {
                 + "|"
                 + delimiterNumbersMap.keySet().stream().sorted((o1, o2) -> Integer.compare(o2.length(), o1.length())).collect(Collectors.joining("|"));
 
-        Pattern pattern = Pattern.compile("(\s*("+collect+")\s*)+");
+        Pattern pattern = Pattern.compile("("+ collect + ")" + "(\s*(" + collect + "))*");
         Matcher matcher = pattern.matcher(text);
 
         String result = text;
@@ -32,7 +32,7 @@ public class Converter {
         return result;
     }
 
-    public static String convertAlphabeticFormToNumeric (String textNumber){
+    private static String convertAlphabeticFormToNumeric(String textNumber) {
         List<String> words = Arrays.stream(textNumber.split(" "))
                 .filter(Strings::isNotEmpty)
                 .toList();
@@ -43,13 +43,14 @@ public class Converter {
             result = delimiterNumbersMap.get(words.get(0));
         else result = basicNumbersMap.get(words.get(0));
 
-        for (int i = 1; i < words.size(); i++){
+        for (int i = 1; i < words.size(); i++) {
             if (delimiterNumbersMap.containsKey(words.get(i)))
                 result = result * delimiterNumbersMap.get(words.get(i));
             else
                 result = result + basicNumbersMap.get(words.get(i));
         }
-        return " " + result + " ";
+
+        return String.valueOf(result);
     }
 
 }
