@@ -1,61 +1,43 @@
 package com.example.demo;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static com.example.demo.Dictionary.*;
 
 public class Converter {
 
-    public static final List<String> mainWords = List.of(
-            "один", "одного", "одному", "одним", "одном",
-            "два", "двух", "двум", "двумя",
-            "три", "трех", "трем", "тремя",
-            "четыре", "четырех", "четырем", "четырьмя",
-            "пять", "пяти", "пятью",
-            "шесть", "шести", "шестью",
-            "семь", "семи", "семью",
-            "восемь", "восьми", "восемью",
-            "девять", "девяти", "девятью",
-            "десять", "десяти","десятью",
-            "одиннадцать", "одиннадцати", "одиннадцатью",
-            "двенадцать", "двенадцати", "двенадцатью",
-            "тринадцать", "тринадцати", "тринадцатью",
-            "четырнадцать", "четырнадцати", "четырнадцатью",
-            "пятнадцать", "пятнадцати", "пятнадцатью",
-            "шестнадцать", "шестнадцати", "шестнадцатью",
-            "семнадцать", "семнадцати", "семнадцатью",
-            "восемнадцать", "восемнадцати", "восемнадцатью",
-            "девятнадцать", "девятнадцати","девятнадцатью",
-            "двадцать", "двадцати", "двадцатью",
-            "тридцать", "тридцати", "тридцатью",
-            "сорок", "сорока",
-            "пятьдесят", "пятидесяти", "пятьюдесятью",
-            "шестьдесят", "шестидесяти", "шестьюдесятью",
-            "семьдесят", "семидесяти", "семьюдесятью",
-            "восемьдесят", "восьмидесяти", "восемьюдесятью",
-            "девяносто", "девяноста",
-            "сто", "ста",
-            "двести", "двухсот", "двумстам", "двумястами", "двухстах",
-            "триста", "трехсот", "тремстам", "тремястами", "трехстах",
-            "четыреста", "четырехсот", "четыремстам",  "четырьмястами", "четырехстах",
-            "пятьсот", "пятисот", "пятистам",  "пятьюстами", "пятистах",
-            "шестьсот", "шестисот", "шестистам", "шестьюстами", "шестистах",
-            "семьсот", "семисот", "семистам", "семьюстами", "семистах",
-            "восемьсот", "восьмисот", "восьмистам", "восемьюстами", "восьмистах",
-            "девятьсот", "девятисот", "девятистам", "девятьюстами", "девятистах"
-    );
-
     public static void main(String[] args) {
-        String collect = String.join(" |", mainWords);
+        String collect = String.join(" |", basicNumbersMap.keySet()) + " |" + String.join(" |", delimiterNumbersMap.keySet());
 
         String text = "У меня есть сто пять фиолетовых енотов и сорок три ежа";
 
         Pattern pattern = Pattern.compile("("+collect+")+");
         Matcher matcher = pattern.matcher(text);
 
+        String result = text;
+
         while (matcher.find()) {
-            System.out.println(text.substring(matcher.start(), matcher.end()));
+            String findingTextNumber = text.substring(matcher.start(), matcher.end());
+            String numericNumber = convertAlphabeticFormToNumeric(findingTextNumber);
+            result = result.replaceAll(findingTextNumber, numericNumber);
         }
+
+        System.out.println(result);
+    }
+
+    public static String convertAlphabeticFormToNumeric (String textNumber){
+        String[] words = textNumber.split(" ");
+        long result = delimiterNumbersMap.getOrDefault(words[0], Long.valueOf(basicNumbersMap.get(words[0])));
+
+        for (int i = 1; i < words.length; i++){
+            if (delimiterNumbersMap.containsKey(words[i])){
+                result = result * delimiterNumbersMap.get(words[i]);
+            }
+            else {
+                result = result + basicNumbersMap.get(words[i]);
+            }
+        }
+        return result + " ";
     }
 
 }
