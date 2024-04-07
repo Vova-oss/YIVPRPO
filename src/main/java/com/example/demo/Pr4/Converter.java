@@ -13,6 +13,7 @@ import static com.example.demo.Pr4.Dictionary.delimiterNumbersMap;
 
 public class Converter {
 
+
     public static String replaceNumbersInText(String text) {
         String collect = basicNumbersMap.keySet().stream().sorted((o1, o2) -> Integer.compare(o2.length(), o1.length())).collect(Collectors.joining("|"))
                 + "|"
