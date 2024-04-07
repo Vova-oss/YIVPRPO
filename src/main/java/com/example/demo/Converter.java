@@ -1,17 +1,24 @@
 package com.example.demo;
 
+import org.apache.logging.log4j.util.Strings;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static com.example.demo.Dictionary.*;
+import java.util.stream.Collectors;
+
+import static com.example.demo.Dictionary.basicNumbersMap;
+import static com.example.demo.Dictionary.delimiterNumbersMap;
 
 public class Converter {
 
-    public static void main(String[] args) {
-        String collect = String.join(" |", basicNumbersMap.keySet()) + " |" + String.join(" |", delimiterNumbersMap.keySet());
+    public static String replaceNumbersInText(String text) {
+        String collect = basicNumbersMap.keySet().stream().sorted((o1, o2) -> Integer.compare(o2.length(), o1.length())).collect(Collectors.joining("|"))
+                + "|"
+                + delimiterNumbersMap.keySet().stream().sorted((o1, o2) -> Integer.compare(o2.length(), o1.length())).collect(Collectors.joining("|"));
 
-        String text = "У меня есть сто пять фиолетовых енотов и сорок три ежа";
-
-        Pattern pattern = Pattern.compile("("+collect+")+");
+        Pattern pattern = Pattern.compile("(\s*("+collect+")\s*)+");
         Matcher matcher = pattern.matcher(text);
 
         String result = text;
@@ -22,22 +29,27 @@ public class Converter {
             result = result.replaceAll(findingTextNumber, numericNumber);
         }
 
-        System.out.println(result);
+        return result;
     }
 
     public static String convertAlphabeticFormToNumeric (String textNumber){
-        String[] words = textNumber.split(" ");
-        long result = delimiterNumbersMap.getOrDefault(words[0], Long.valueOf(basicNumbersMap.get(words[0])));
+        List<String> words = Arrays.stream(textNumber.split(" "))
+                .filter(Strings::isNotEmpty)
+                .toList();
 
-        for (int i = 1; i < words.length; i++){
-            if (delimiterNumbersMap.containsKey(words[i])){
-                result = result * delimiterNumbersMap.get(words[i]);
-            }
-            else {
-                result = result + basicNumbersMap.get(words[i]);
-            }
+        long result;
+
+        if (delimiterNumbersMap.containsKey(words.get(0)))
+            result = delimiterNumbersMap.get(words.get(0));
+        else result = basicNumbersMap.get(words.get(0));
+
+        for (int i = 1; i < words.size(); i++){
+            if (delimiterNumbersMap.containsKey(words.get(i)))
+                result = result * delimiterNumbersMap.get(words.get(i));
+            else
+                result = result + basicNumbersMap.get(words.get(i));
         }
-        return result + " ";
+        return " " + result + " ";
     }
 
 }

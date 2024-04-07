@@ -137,6 +137,7 @@ public class Dictionary {
 
     public static final Map<String, Long> delimiterNumbersMap = new HashMap<>();
     static {
+        delimiterNumbersMap.put("тысяча", 1000L);
         delimiterNumbersMap.put("тысячи", 1000L);
         delimiterNumbersMap.put("тысяч", 1000L);
         delimiterNumbersMap.put("тысяче", 1000L);
@@ -145,6 +146,7 @@ public class Dictionary {
         delimiterNumbersMap.put("тысячам", 1000L);
         delimiterNumbersMap.put("тысячами", 1000L);
         delimiterNumbersMap.put("тысячах", 1000L);
+        delimiterNumbersMap.put("миллион", 1000000L);
         delimiterNumbersMap.put("миллиона", 1000000L);
         delimiterNumbersMap.put("миллионов", 1000000L);
         delimiterNumbersMap.put("миллиону", 1000000L);
@@ -154,6 +156,7 @@ public class Dictionary {
         delimiterNumbersMap.put("миллионам", 1000000L);
         delimiterNumbersMap.put("миллионами", 1000000L);
         delimiterNumbersMap.put("миллиарда", 1000000000L);
+        delimiterNumbersMap.put("миллиард", 1000000000L);
         delimiterNumbersMap.put("миллиардов", 1000000000L);
         delimiterNumbersMap.put("миллиарду", 1000000000L);
         delimiterNumbersMap.put("миллиардом", 1000000000L);
