@@ -11,6 +11,9 @@ jdk:
 script:
   - mvn clean install sonar:sonar -Dsonar.projectKey=Vova-oss_YIVPRPO
 
+after_success:
+  - mvn clean test jacoco:report coveralls:report
+
 notifications:
   email:
     recipients:
